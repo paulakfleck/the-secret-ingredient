@@ -14,7 +14,7 @@
     </fixed-header>
     <main>
     <div id="welcome-message">
-    Olá, {{ user.name }}!
+    <h1>Olá, {{ user.name }}!</h1>
     </div>
       <search>
         <form>
