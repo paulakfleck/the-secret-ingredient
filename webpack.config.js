@@ -22,6 +22,7 @@ module.exports = {
         use: [
           'vue-style-loader',
           'css-loader',
+          'resolve-url-loader',
           'sass-loader'
         ],
       },
@@ -32,6 +33,16 @@ module.exports = {
           'css-loader',
           'sass-loader?indentedSyntax'
         ],
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2|svg)$/,
+        use: {
+            loader: 'file-loader',
+            options: {
+                name: '[name].[ext]',
+                outputPath: './src/assets/fonts'
+            },
+        },
       },
       {
         test: /\.vue$/,

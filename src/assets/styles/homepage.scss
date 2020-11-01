@@ -1,0 +1,13 @@
+@import './normalize';
+@import './assets';
+
+body {
+    background: white;
+    font-family: 'Open Sans';
+    font-weight: normal;
+    font-style: normal;
+}
+
+header {
+    background: $accent-color;
+}
