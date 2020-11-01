@@ -1,0 +1,81 @@
+/*
+    Default.scss file - content present on all pages.
+*/
+
+$accent-color: #AAFFC7;
+$adjacent-color: #414A9D;
+$default-color: #232855;
+
+$header-height: 11rem;
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/OpenSans-Regular.eot');
+    src: url('../fonts/OpenSans-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/OpenSans-Regular.woff2') format('woff2'),
+        url('../fonts/OpenSans-Regular.woff') format('woff'),
+        url('../fonts/OpenSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/OpenSans-Bold.eot');
+    src: url('../fonts/OpenSans-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/OpenSans-Bold.woff2') format('woff2'),
+        url('../fonts/OpenSans-Bold.woff') format('woff'),
+        url('../fonts/OpenSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    font-size: 62.5%;
+}
+
+body {
+    background: white;
+    font-family: 'Open Sans';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.4rem;
+    padding: ($header-height + 2rem) 0 0 0;
+}
+
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: $header-height;
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: $accent-color;
+        transform: skew(0deg, 2deg);
+        z-index: -1;
+    }
+    &:after {
+        top: - ($header-height / 2);
+    }
+}
+
+h1 {
+    font-size: 2.4rem;
+}
+
+.wrap-container {
+    max-width: 120rem;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: block;
+}
