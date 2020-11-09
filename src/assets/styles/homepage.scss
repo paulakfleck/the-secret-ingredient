@@ -4,3 +4,18 @@
 
 @import './normalize';
 @import './default';
+
+ul.items-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 4.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+        height: 10rem;
+        border-radius: 4px;
+        background: $accent-color;
+    }
+}
