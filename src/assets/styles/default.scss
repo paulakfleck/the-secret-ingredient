@@ -6,7 +6,7 @@ $accent-color: #AAFFC7;
 $adjacent-color: #414A9D;
 $default-color: #232855;
 
-$header-height: 4rem;
+$header-height: 8rem;
 
 @font-face {
     font-family: 'Open Sans';
@@ -42,16 +42,20 @@ body {
     font-weight: normal;
     font-style: normal;
     font-size: 1.4rem;
-    padding: ($header-height * 2) 0 0 0;
+    padding: ($header-height * 1.1) 0 0 0;
 }
 
 header {
     width: 100%;
     height: $header-height;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: fixed;
     top: 0;
     left: 0;
-    padding: 3rem 0;
+    padding: 0;
+    z-index: 1;
 
     &:before,
     &:after {
@@ -70,6 +74,7 @@ header {
     }
 
     nav#side-bar-menu {
+        margin-top: 1rem;
         position: absolute;
 
         &:before,
@@ -121,6 +126,6 @@ input {
     width: 100%;
     border-radius: 4px;
     border: none;
-    padding: 1rem;;
+    padding: 1.6rem;
     background: rgba($color: $adjacent-color, $alpha: 0.17);
 }

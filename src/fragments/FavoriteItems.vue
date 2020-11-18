@@ -1,12 +1,56 @@
 <template>
-  <section>
+  <section id="favorite-items">
+
   <h2>Produtos favoritos:</h2>
-    <ul>
+
+    <ul class="items-list">
       <li>
-        Item 1favvv
+        <figure>
+          <img src="" />
+          <figcaption>
+            Item 1
+          </figcaption>
+        </figure>
       </li>
       <li>
-        Item 2
+        <figure>
+          <img src="" />
+          <figcaption>
+            Item 1
+          </figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure>
+          <img src="" />
+          <figcaption>
+            Item 1
+          </figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure>
+          <img src="" />
+          <figcaption>
+            Item 1
+          </figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure>
+          <img src="" />
+          <figcaption>
+            Item 1
+          </figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure>
+          <img src="" />
+          <figcaption>
+            Item 1
+          </figcaption>
+        </figure>
       </li>
     </ul>
   </section>
