@@ -1,6 +1,6 @@
 <template>
-  <div>
-    PhotoScan
+  <div id="page-photo-scan">
+     <input type="file" class="custom-file-input">
   </div>
 </template>
 

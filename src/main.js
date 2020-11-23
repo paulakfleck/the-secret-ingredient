@@ -5,6 +5,7 @@ import Homepage from './Homepage.vue'
 import PhotoScan from './PhotoScan.vue'
 
 import './assets/styles/homepage.scss';
+import './assets/styles/photo-scan.scss';
 
 Vue.use(VueRouter)
 

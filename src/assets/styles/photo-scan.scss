@@ -1,0 +1,61 @@
+/*
+    photo-scan.scss file - content present on PhotoScan.
+*/
+
+@import './normalize';
+@import './default';
+
+
+#page-photo-scan {
+    background: $accent-color;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .custom-file-input {
+    position: relative;
+    background: rgba($color: $adjacent-color, $alpha: 0.1);
+
+    &::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+    &:after {
+        width: 14rem;
+        height: 3rem;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto 1.5rem;
+        border: 0.1rem solid #999;
+        border-radius: 0.3rem;
+        content: '';
+    }
+    &::before {
+      content: 'Take or select photo';
+      display: inline-block;
+      border-radius: 3px;
+      padding: 5px 8px;
+      outline: none;
+      white-space: nowrap;
+      -webkit-user-select: none;
+      cursor: pointer;
+      text-shadow: 1px 1px #fff;
+      font-weight: 700;
+      font-size: 1.2rem;
+      width: 5rem;
+    }
+    &:hover::before {
+      border-color: black;
+    }
+    &:active::before {
+      background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+    }
+  }
+  

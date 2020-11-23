@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="page-homepage">
     <main>
       <div class="wrap-container">
         <section id="welcome-message">
