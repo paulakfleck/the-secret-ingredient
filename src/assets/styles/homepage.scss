@@ -4,3 +4,88 @@
 
 @import './normalize';
 @import './default';
+
+#search-ingredients {
+    position: relative;
+
+    #search {
+        background: none;
+        border: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto 1rem;
+    }
+}
+
+ul.items-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 4.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+
+        figure {
+            width: 100%;
+            height: 10rem;
+            border-radius: 4px;
+            background: $accent-color;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        figcaption {
+            text-align: center;
+            padding: 0.9rem 0;
+        }
+    }
+}
+
+ul.items-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+        margin-bottom: 2.5rem;
+    }
+
+    figure {
+        display: flex;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+
+        figcaption {
+            margin-left: 2rem;
+        }
+
+        img {
+            width: 45px;
+            height: 45px;
+            background: grey;
+        }
+    }
+}
+
+#camera-scan {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 9rem;
+    height: 9rem;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    border-radius: 50%;
+    margin: 3rem;
+    background: $adjacent-color;
+}

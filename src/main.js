@@ -1,9 +1,23 @@
+
 import Vue from 'vue'
-import App from './App.vue'
+import VueRouter from 'vue-router'
+import Homepage from './Homepage.vue'
+import PhotoScan from './PhotoScan.vue'
 
 import './assets/styles/homepage.scss';
+import './assets/styles/photo-scan.scss';
 
-new Vue({
-  el: '#app',
-  render: h => h(App)
+Vue.use(VueRouter)
+
+const routes = [
+  { path: '/', component: Homepage },
+  { path: '/photo-scan', component: PhotoScan }
+]
+
+const router = new VueRouter({
+  routes
 })
+
+const app = new Vue({
+  router
+}).$mount('#app')
