@@ -40,22 +40,18 @@
     &::before {
       content: 'Take or select photo';
       display: inline-block;
-      border-radius: 3px;
-      padding: 5px 8px;
+      padding: 0.5rem 0.8rem;
       outline: none;
       white-space: nowrap;
       -webkit-user-select: none;
       cursor: pointer;
-      text-shadow: 1px 1px #fff;
+      text-shadow: 0.1rem 0.1rem #fff;
       font-weight: 700;
       font-size: 1.2rem;
       width: 5rem;
     }
     &:hover::before {
       border-color: black;
-    }
-    &:active::before {
-      background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
     }
   }
   
