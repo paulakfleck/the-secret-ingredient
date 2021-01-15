@@ -6,8 +6,8 @@
           <h1>Olá, {{ user.name }}!</h1>
         </section>
 
-        <form id="search-ingredients">
-          <input type="text" placeholder="Buscar ingrediente..." />
+        <form id="search-ingredients" @submit="search">
+          <input type="text" placeholder="Buscar ingrediente..." v-model="fieldIngredient" required />
           <button id="search">
               <svg xmlns="http://www.w3.org/2000/svg" width="23.48" height="23.569" viewBox="0 0 23.48 23.569">
                 <g id="loupe" transform="translate(-0.96)">
@@ -55,6 +55,7 @@
 <script>
   import AvoidItems from './fragments/AvoidItems.vue'
   import FavoriteItems from './fragments/FavoriteItems.vue'
+  import IngredientsService from "./services/IngredientsService.js";
 
 export default {
   name: 'homepage',
@@ -67,8 +68,23 @@ export default {
   data () {
     return {
       user: {
-        name: 'Paula'
-      }
+        name: 'Paula',
+      },
+      fieldIngredient: ''
+    }
+  },
+
+  methods: {
+    search: function (e) {
+      e.preventDefault();
+
+      console.log('doing search...');
+      console.log('fieldIngredient', this.fieldIngredient);
+
+      IngredientsService.searchIngredient(this.fieldIngredient).then((wikipediaPage) => {
+        console.log('wikipediaPage');
+        console.log(wikipediaPage);
+      });
     }
   }
 }
