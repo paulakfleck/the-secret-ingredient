@@ -23,39 +23,17 @@ app.get('/search-ingredient/:id', (req, res) => {
       let searchResults = await wiki.search(req.params.id);
       let suggestedIngredient = searchResults.results[0].title;
 
-      console.log(suggestedIngredient);
-
-      console.log(searchResults);
-
       if (suggestedIngredient) {
 
-        console.log(suggestedIngredient);
-
         let searchPage = await wiki.page(suggestedIngredient);
-        let summary = await searchPage.summary();
         let intro = await searchPage.intro();
         let images = await searchPage.images();
-        let html = await searchPage.html();
-        let related = await searchPage.related();
-        let media = await searchPage.media();
-        let content = await searchPage.content();
 
-        // console.log('searchPage');
-        // console.log(searchPage);
-
-        console.log('intro');
-        console.log(intro);
-
-
-        // everything
-        // console.log(content);
-
-        // images
-        // console.log(images);
-
-        res.send(searchIngredient);
-
-        console.log(searchIngredient);
+        res.send({
+          ingredient: suggestedIngredient,
+          intro: intro,
+          images: images
+        });
       }
 
     } catch (error) {
