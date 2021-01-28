@@ -43,43 +43,13 @@ app.get('/search-ingredient/:id', (req, res) => {
   })();
 });
 
-app.post('/add-credit', (req, res) => {
-  // let newCreditData = req.body;
+app.post('/upload-photo', (req, res) => {
+  let photo = req.body;
 
-  // fs.readFile('./data/credits.json', 'utf8', (err, data) => {
-  //     if (err) {
-  //         console.error(err);
-  //         res.status(500).send(err);
-  //     }
-
-  //     let credits = JSON.parse(data);
-
-  //     console.log(credits[credits.length - 1]);
-
-  //     if (credits[credits.length - 1]) {
-  //         let $last = credits[credits.length - 1];
-
-  //         newCreditData.id = $last.id + 1;
-
-  //     } else {
-  //         newCreditData.id = 1;
-  //     }
-
-  //     console.log('current id', newCreditData.id);
-
-  //     console.log(`newCreditData`, newCreditData);
-  //     console.log(`-------------------------------------------------`);
-
-  //     credits.push(newCreditData);
-
-  //     fs.writeFile("./data/credits.json", JSON.stringify(credits), (err) => {
-  //         if (err) {
-  //             console.error(err);
-  //             res.status(500).send(err);
-  //         }
-  //         res.sendStatus(200);
-  //     });
-  // });
+  console.log(req.body);
+  console.log(req.files.file.name);
+   console.log(req.files.file.path);
+   console.log(req.files.file.type);
 
 });
 
