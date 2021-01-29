@@ -55,7 +55,7 @@
 <script>
   import AvoidItems from './fragments/AvoidItems.vue'
   import FavoriteItems from './fragments/FavoriteItems.vue'
-  import IngredientsService from "./services/IngredientsService.js";
+  import IngredientsService from './services/IngredientsService.js';
 
 export default {
   name: 'homepage',
