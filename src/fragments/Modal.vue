@@ -5,7 +5,7 @@
       <img v-bind:src="'../../backend/uploads/product-image/' + imageUrl" alt="" />
 
       <ul v-if="foundIngredients">
-        <li v-for="ingredient in arrIngredients" :key="ingredient">
+        <li v-for="ingredient in ingredients" :key="ingredient">
           {{ingredient}}
         </li>
       </ul>
@@ -23,7 +23,7 @@ export default {
 
   data() {
     return {
-      arrIngredients: [],
+      ingredients: [],
       foundIngredients: false
     };
   },
@@ -46,10 +46,20 @@ export default {
           this.foundIngredients = true;
 
           let parseIngredients = text.split(',');
-          this.arrIngredients = [...parseIngredients];
+          this.ingredients = [...parseIngredients];
+
+          this.getIngredientData();
         }
       });
     },
+
+    getIngredientData: function() {
+      this.ingredients.forEach(ingredient => {
+        IngredientsService.searchIngredient(ingredient).then((response) => {
+        console.log(response);
+      });
+      });
+    }
   },
 };
 </script>
