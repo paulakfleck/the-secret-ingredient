@@ -69,18 +69,15 @@ app.get('/search-ingredient/:id', (req, res) => {
 
 app.post("/upload-photo", upload.single("file"), (req, res) => {
     const tempPath = req.file.path;
-    const targetPath = path.join(__dirname, `./uploads/product-image/${req.file.originalname}`);
-    const ext = path.extname(req.file.originalname).toLowerCase();
+    const originalName = req.file.originalname;
+    const targetPath = path.join(__dirname, `./uploads/product-image/${originalName}`);
+    const ext = path.extname(originalName).toLowerCase();
 
     if ((ext === ".png") || (ext === ".jpg") || (ext === ".jpeg")) {
       fs.rename(tempPath, targetPath, err => {
         if (err) return handleError(err, res);
 
-        res
-          .status(200)
-          .contentType("text/plain")
-          .end("File uploaded!");
-
+        res.status(200).send({image: originalName});
       });
 
     } else {
