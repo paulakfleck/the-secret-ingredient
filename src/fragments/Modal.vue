@@ -9,15 +9,22 @@
           {{ingredient}}
         </li>
       </ul>
+
+      <loading></loading>
     </div>
   </div>
 </template>
 
 <script>
-import Tesseract from "./../assets/scripts/tesseract.min.js";
+import Loading from './Loading.vue'
+import Tesseract from './../assets/scripts/tesseract.min.js';
 
 export default {
   name: "modal",
+
+  components: {
+    Loading
+  },
 
   props: ["imageUrl", "isTesseract"],
 
@@ -40,13 +47,37 @@ export default {
         logger: (m) => console.log(m)
 
       }).then(({ data: { text } }) => {
-        console.log(text);
 
         if (text) {
           this.foundIngredients = true;
 
-          let parseIngredients = text.split(',');
-          this.ingredients = [...parseIngredients];
+          // Separate by comma
+          let splitComma = text.split(',');
+
+          let tempIngredients = [...splitComma];
+
+          tempIngredients.forEach(ingredient => {
+            // Separate by "e"
+            if (ingredient.indexOf(' e ') > -1) {
+              delete tempIngredients[ingredient];
+              let splitAnd = ingredient.split(' e ');
+
+              this.ingredients = [...this.ingredients, ...splitAnd];
+            }
+          });
+
+          // Replace symbols
+          tempIngredients.forEach(ingredient => {
+            let re = new RegExp(/[^\w\s]/gi);
+
+            if (re.test(ingredient)) {
+              delete tempIngredients[ingredient];
+
+              this.ingredients = [...this.ingredients, ingredient.trim()];
+            }
+          });
+
+
 
           this.getIngredientData();
         }
@@ -54,11 +85,13 @@ export default {
     },
 
     getIngredientData: function() {
-      this.ingredients.forEach(ingredient => {
-        IngredientsService.searchIngredient(ingredient).then((response) => {
-        console.log(response);
-      });
-      });
+      // this.ingredients.forEach(ingredient => {
+      //   console.log(`looking for: ${ingredient}`);
+
+      //   IngredientsService.searchIngredient(ingredient).then((response) => {
+      //     console.log(response);
+      //   });
+      // });
     }
   },
 };
