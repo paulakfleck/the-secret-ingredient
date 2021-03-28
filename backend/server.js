@@ -39,21 +39,22 @@ app.get('/search-ingredient/:id', (req, res) => {
       let suggestedIngredient = searchResults.results[0].title;
 
       if (suggestedIngredient) {
-
         let searchPage = await wiki.page(suggestedIngredient);
         let intro = await searchPage.intro();
         let images = await searchPage.images();
 
         res.send({
+          searchedFor: req.params.id,
           ingredient: suggestedIngredient,
-          intro: intro,
-          images: images
+          intro: intro
         });
       }
 
     } catch (error) {
       console.log(error);
-      res.send(error);
+      res.status(404).send({
+        searchedFor: req.params.id
+      });
     }
   })();
 });

@@ -4,27 +4,37 @@
       <h2>Leitor de ingredientes:</h2>
       <img v-bind:src="'../../backend/uploads/product-image/' + imageUrl" alt="" />
 
-      <ul v-if="foundIngredients">
-        <li v-for="ingredient in ingredients" :key="ingredient">
-          {{ingredient}}
-        </li>
-      </ul>
+      <div class="cards-container" v-if="foundIngredients">
+          <card v-for="ingredient in searchResult" :key="ingredient.searchedFor" :originalIngredient="ingredient.searchedFor" :ingredient="ingredient.ingredient" :intro="ingredient.intro"  ></card>
+      </div>
+
+      <loading v-if="loadingFlag"></loading>
     </div>
   </div>
 </template>
 
 <script>
-import Tesseract from "./../assets/scripts/tesseract.min.js";
+import Loading from './Loading.vue';
+import Tesseract from './../assets/scripts/tesseract.min.js';
+import IngredientsService from './../services/IngredientsService.js';
+import Card from "./Card.vue";
 
 export default {
   name: "modal",
+
+  components: {
+    Loading,
+    Card
+  },
 
   props: ["imageUrl", "isTesseract"],
 
   data() {
     return {
       ingredients: [],
-      foundIngredients: false
+      foundIngredients: false,
+      loadingFlag: true,
+      searchResult: []
     };
   },
 
@@ -34,19 +44,23 @@ export default {
 
   methods: {
     runTesseract: function () {
-      console.log(this.imageUrl);
-
       Tesseract.recognize(`../../backend/uploads/product-image/${this.imageUrl}`, "por", {
-        logger: (m) => console.log(m)
-
       }).then(({ data: { text } }) => {
-        console.log(text);
 
         if (text) {
           this.foundIngredients = true;
 
-          let parseIngredients = text.split(',');
-          this.ingredients = [...parseIngredients];
+          text = text.replace(/\r?\n|\r/g, '').replace(/ingredientes/gi, '').trim();
+
+          // Split ingredients by "(",")", ",", " e ", " and ", ":", "."
+          let splitText = text.split(/(\se\s)|(\sand\s)|[\(),:.]+/gi);
+          let tempIngredients = [...splitText];
+
+          this.ingredients = tempIngredients.filter(function(ingredient) {
+            if ((ingredient !== undefined) && (ingredient !== " e ") && (ingredient !== " ") && (ingredient !== "")) {
+              return ingredient;
+            }
+          });
 
           this.getIngredientData();
         }
@@ -56,8 +70,9 @@ export default {
     getIngredientData: function() {
       this.ingredients.forEach(ingredient => {
         IngredientsService.searchIngredient(ingredient).then((response) => {
-        console.log(response);
-      });
+          this.loadingFlag = false;
+          this.searchResult.push(response);
+        });
       });
     }
   },

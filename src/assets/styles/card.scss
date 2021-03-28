@@ -1,0 +1,69 @@
+/*
+    photo-scan.scss file - content present on PhotoScan.
+*/
+
+@import './normalize';
+@import './default';
+
+
+.cards-container {
+  margin: 2rem 0;
+}
+
+.card {
+  background: #F4F4F4;
+  border: solid 1px #DDD;
+  margin: 0 0 2rem 0;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  max-height: 20rem;
+  overflow: hidden;
+  position: relative;
+  transition: ease-in-out 500ms max-height;
+
+  &.active {
+    max-height: 1000px;
+  }
+
+  .card-title {
+    font-size: 1.8rem;
+
+    span {
+      text-transform: uppercase;
+      background: $accent-color;
+      font-size: 1.2rem;
+      padding: 0.3rem;
+      border-radius: 0.3rem;
+    }
+  }
+
+  .card-description {
+    p {
+      line-height: 1.7;
+    }
+
+    &:before {
+      content: '';
+      width: 100%;
+      height:4rem;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(180deg, rgba(244,244,244,0) 0%, rgba(244,244,244,1) 80%);
+    }
+  }
+
+  .card-expand-collapse {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: 0 auto 0.3rem auto;
+    z-index: 1;
+    font-size: 1rem;
+    color: #FFF;
+    border: solid 1px rgb(141, 141, 141);
+    border-radius: 0.3rem;
+    background: rgb(167, 167, 167);
+  }
+}

@@ -6,6 +6,7 @@ import PhotoScan from './PhotoScan.vue'
 
 import './assets/styles/homepage.scss';
 import './assets/styles/photo-scan.scss';
+import './assets/styles/card.scss';
 
 Vue.use(VueRouter)
 
