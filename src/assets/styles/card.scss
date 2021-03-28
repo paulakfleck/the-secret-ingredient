@@ -19,10 +19,10 @@
   max-height: 20rem;
   overflow: hidden;
   position: relative;
-  transition: ease-in-out 300ms max-height;
+  transition: ease-in-out 500ms max-height;
 
   &.active {
-    max-height: 10000px;
+    max-height: 1000px;
   }
 
   .card-title {
