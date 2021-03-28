@@ -23,11 +23,7 @@
         accept="image/*;capture=camera"
       />
     </div>
-    <modal
-      v-if="showModal"
-      :imageUrl="modalImageUrl"
-      :isTesseract="true"
-    ></modal>
+    <modal v-if="showModal" :imageUrl="modalImageUrl" :isTesseract="true"></modal>
   </section>
 </template>
 

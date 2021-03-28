@@ -4,26 +4,27 @@
       <h2>Leitor de ingredientes:</h2>
       <img v-bind:src="'../../backend/uploads/product-image/' + imageUrl" alt="" />
 
-      <ul v-if="foundIngredients">
-        <li v-for="ingredient in ingredients" :key="ingredient">
-          {{ingredient}}
-        </li>
-      </ul>
+      <div class="cards-container" v-if="foundIngredients">
+          <card v-for="ingredient in searchResult" :key="ingredient.searchedFor" :originalIngredient="ingredient.searchedFor" :ingredient="ingredient.ingredient" :intro="ingredient.intro"  ></card>
+      </div>
 
-      <loading></loading>
+      <loading v-if="loadingFlag"></loading>
     </div>
   </div>
 </template>
 
 <script>
-import Loading from './Loading.vue'
+import Loading from './Loading.vue';
 import Tesseract from './../assets/scripts/tesseract.min.js';
+import IngredientsService from './../services/IngredientsService.js';
+import Card from "./Card.vue";
 
 export default {
   name: "modal",
 
   components: {
-    Loading
+    Loading,
+    Card
   },
 
   props: ["imageUrl", "isTesseract"],
@@ -31,7 +32,9 @@ export default {
   data() {
     return {
       ingredients: [],
-      foundIngredients: false
+      foundIngredients: false,
+      loadingFlag: true,
+      searchResult: []
     };
   },
 
@@ -41,43 +44,23 @@ export default {
 
   methods: {
     runTesseract: function () {
-      console.log(this.imageUrl);
-
       Tesseract.recognize(`../../backend/uploads/product-image/${this.imageUrl}`, "por", {
-        logger: (m) => console.log(m)
-
       }).then(({ data: { text } }) => {
 
         if (text) {
           this.foundIngredients = true;
 
-          // Separate by comma
-          let splitComma = text.split(',');
+          text = text.replace(/\r?\n|\r/g, '').replace(/ingredientes/gi, '').trim();
 
-          let tempIngredients = [...splitComma];
+          // Split ingredients by "(",")", ",", " e ", " and ", ":", "."
+          let splitText = text.split(/(\se\s)|(\sand\s)|[\(),:.]+/gi);
+          let tempIngredients = [...splitText];
 
-          tempIngredients.forEach(ingredient => {
-            // Separate by "e"
-            if (ingredient.indexOf(' e ') > -1) {
-              delete tempIngredients[ingredient];
-              let splitAnd = ingredient.split(' e ');
-
-              this.ingredients = [...this.ingredients, ...splitAnd];
+          this.ingredients = tempIngredients.filter(function(ingredient) {
+            if ((ingredient !== undefined) && (ingredient !== " e ") && (ingredient !== " ") && (ingredient !== "")) {
+              return ingredient;
             }
           });
-
-          // Replace symbols
-          tempIngredients.forEach(ingredient => {
-            let re = new RegExp(/[^\w\s]/gi);
-
-            if (re.test(ingredient)) {
-              delete tempIngredients[ingredient];
-
-              this.ingredients = [...this.ingredients, ingredient.trim()];
-            }
-          });
-
-
 
           this.getIngredientData();
         }
@@ -85,13 +68,12 @@ export default {
     },
 
     getIngredientData: function() {
-      // this.ingredients.forEach(ingredient => {
-      //   console.log(`looking for: ${ingredient}`);
-
-      //   IngredientsService.searchIngredient(ingredient).then((response) => {
-      //     console.log(response);
-      //   });
-      // });
+      this.ingredients.forEach(ingredient => {
+        IngredientsService.searchIngredient(ingredient).then((response) => {
+          this.loadingFlag = false;
+          this.searchResult.push(response);
+        });
+      });
     }
   },
 };
